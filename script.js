@@ -39,7 +39,7 @@ function pokemon() {
             console.log('erro:', erro);
         });
 }
-    
+
 pokemon();
 
 function criarTabela(){
