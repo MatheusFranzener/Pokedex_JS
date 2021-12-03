@@ -1,3 +1,7 @@
+body{
+    background-color: azure;
+}
+
 .divPrincipal{
     display: flex;
     justify-content: center;
@@ -19,4 +23,14 @@
 .botaoPesquisa{
     width: 80px;
     height: 20px;
+}
+
+.imagemPokemon{
+    width: 50px;
+    height: 50px;
+}
+
+.botaoPesquisa{
+    margin-top: 20px;
+    margin-bottom: 10px;
 }

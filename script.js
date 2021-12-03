@@ -1,7 +1,7 @@
 let listaPokemon = [
-
+ 
 ];
-
+ 
 let divPrincipal = document.querySelector('body');
 divPrincipal.className = 'divPrincipal';
  
@@ -11,7 +11,7 @@ cabecalho.className = 'cabecalho';
 let logoPokemon = document.createElement('img');
 logoPokemon.src ='https://logosmarcas.net/wp-content/uploads/2020/05/Pokemon-Logo.png';
 logoPokemon.className = 'logo';
-
+ 
 cabecalho.appendChild(logoPokemon);
 document.body.appendChild(cabecalho);
  
@@ -22,9 +22,9 @@ divPrincipal.appendChild(barraPesquisa);
 let botaoPesquisa = document.createElement('button');
 botaoPesquisa.className = 'botaoPesquisa';
 botaoPesquisa.innerText = 'Buscar';
-botaoPesquisa.onclick = filtroTabela();
+botaoPesquisa.onclick = filtroTabela;
 divPrincipal.appendChild(botaoPesquisa);
-
+ 
 function pokemon() {
     fetch('https://prof-poke-api.herokuapp.com/api/pokedex/')
         .then(function (resultado) {
@@ -39,14 +39,14 @@ function pokemon() {
             console.log('erro:', erro);
         });
 }
-
+ 
 pokemon();
-
+ 
 function criarTabela(){
-    let tabelaAtual = document.querySelector('table');
-
-    if(tabelaAtual){
-        tabelaAtual.remove();
+    let atualTabela = document.querySelector('table');
+ 
+    if(atualTabela){
+        atualTabela.remove();
     }
    
     const tabela = document.createElement('table');
@@ -55,9 +55,8 @@ function criarTabela(){
     const colunaNome = document.createElement('th');
     const botaoPesquisa = document.createElement('th');
  
-    colunaImagem.innerText = 'Imagem';
-    colunaNome.innerText = 'Nome';
-    botaoPesquisa.innerText = 'Botão';
+    colunaNome.innerText = 'Imagem';
+    botaoPesquisa.innerText = 'Nome';
  
     tabela.appendChild(linha);
     linha.appendChild(colunaImagem);
@@ -68,7 +67,9 @@ function criarTabela(){
         const linhaTabela = dadosTabela(
             element.id,
             element.name,
-            element.url_icon);
+            element.url_icon,
+            element.url_icon_2
+            );
  
         tabela.appendChild(linhaTabela);
         }
@@ -76,28 +77,28 @@ function criarTabela(){
         return tabela;
 }
  
-function dadosTabela(id,name,url_icon) {
+function dadosTabela(id,name,url_icon, url_icon_2) {
     const linha = document.createElement('tr');
     const colunaImagem = document.createElement('td');
     const colunaNome = document.createElement('td');
-    const botaoPesquisa = document.createElement('button');
     const button = document.createElement('td');
-
+    const botaoPesquisa = document.createElement('button');
     const linkBotao = document.createElement('a');
     const imgPokemon = document.createElement('img');
-
+ 
     linkBotao.innerText = 'Conferir Dados';
     linkBotao.href = './Pokemon/index.html?'+id;
  
     imgPokemon.src = url_icon;
     colunaNome.innerText = name;
 
-    colunaImagem.appendChild(imgPokemon);
-
-    colunaImagem.onerror = function () {
-        colunaImagem.src = listaPokemon.url_icon_2;
+    imgPokemon.onerror = function () {
+        imgPokemon.src = url_icon_2;
     }
+ 
+    imgPokemon.className = 'imagemPokemon';
 
+    colunaImagem.appendChild(imgPokemon);
     button.appendChild(botaoPesquisa);
     botaoPesquisa.appendChild(linkBotao);
     linha.appendChild(button);
@@ -107,47 +108,50 @@ function dadosTabela(id,name,url_icon) {
  
     return linha;
 }
-
+ 
 
 function filtroTabela() {
-    const filtro = listaPokemon.filter(function (element) {
+    let filtro = listaPokemon.filter(function (element) {
         return element.name.startsWith(barraPesquisa.value);
     });
-
     criarTabelaFiltro(filtro);
 }
-
-
-
+ 
 function criarTabelaFiltro(filtro){
+    let atualTabela = document.querySelector('table');
+ 
+    if(atualTabela){
+        atualTabela.remove();
+    }
+
     const tabela = document.createElement('table');
     const linha = document.createElement('tr');
     const colunaImagem = document.createElement('th');
     const colunaNome = document.createElement('th');
     const botaoPesquisa = document.createElement('th');
  
-    colunaImagem.innerText = 'Imagem';
-    colunaNome.innerText = 'Nome';
-    botaoPesquisa.innerText = 'Botão';
+    colunaNome.innerText = 'Imagem';
+    botaoPesquisa.innerText = 'Nome';
  
     tabela.appendChild(linha);
     linha.appendChild(colunaImagem);
-    linha.appendChild(colunaNome);   
+    linha.appendChild(colunaNome);  
     linha.appendChild(botaoPesquisa);
  
     filtro.forEach(function (element) {
         const linhaTabela = dadosTabela(
             element.id,
             element.name,
-            element.url_icon);
+            element.url_icon,
+            element.url_icon_2
+            );
  
         tabela.appendChild(linhaTabela);
         }
     )
-        
+       
     divPrincipal.appendChild(tabela);
-        
-    
+       
     return tabela;
-      
 }
+

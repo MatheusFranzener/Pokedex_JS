@@ -1,23 +1,20 @@
-let userName = document.location.search;
-userName = userName.replace('?', '');
+let userPokemon = document.location.search;
+userPokemon = userPokemon.replace('?', '');
 
 let divPrincipal = document.querySelector('body');
 
-pokemon(userName);
-
-let divNome = document.createElement('div');
-divNome.appendChild(nomePokemon);
+pokemon(userPokemon);
 
 function pokemon() {
-    fetch('https://prof-poke-api.herokuapp.com/api/pokemon/'+userName)
+    fetch('https://prof-poke-api.herokuapp.com/api/pokemon/'+userPokemon)
         .then(function (resultado) {
             resultado.json().then(function (data) {
                 console.log('User Data:', data);
                 nomePokemon(data);
                 imagemPokemon(data);
                 ataquePokemon(data);
-                defesaPokemon(data);
                 ataqueSPokemon(data);
+                defesaPokemon(data);
                 defesaSPokemon(data);
                
             });
@@ -26,41 +23,42 @@ function pokemon() {
         });
 }
 
-function nomePokemon(userName){
+function nomePokemon(userPokemon){
     divNome = document.createElement('div');
-    divNome.innerText = userName.name;
+    divNome.innerText = userPokemon.name;
     divPrincipal.appendChild(divNome);
 }
 
-function imagemPokemon(userName){
+function imagemPokemon(userPokemon){
     divImagem = document.createElement('img');
-    divImagem.src = userName.url_icon;
+    divImagem.src = userPokemon.url_icon;
     divPrincipal.appendChild(divImagem);
+
+    divImagem.onerror = function () {
+        divImagem.src = userPokemon.url_icon_2;
+    }
 }
 
-function ataquePokemon(userName){
+function ataquePokemon(userPokemon){
     divAtaque = document.createElement('div');
-    divAtaque.innerText = userName.atk;
+    divAtaque.innerText = userPokemon.atk;
     divPrincipal.appendChild(divAtaque);
 }
 
-function defesaPokemon(userName){
+function defesaPokemon(userPokemon){
     divDefesa = document.createElement('div');
-    divDefesa.innerText = userName.def;
+    divDefesa.innerText = userPokemon.def;
     divPrincipal.appendChild(divDefesa);
 }
 
-function ataqueSPokemon(userName){
+function ataqueSPokemon(userPokemon){
     divAtaqueS = document.createElement('div');
-    divAtaqueS.innerText = userName.atks;
+    divAtaqueS.innerText = userPokemon.atks;
     divPrincipal.appendChild(divAtaqueS);
 }
 
-function defesaSPokemon(userName){
+function defesaSPokemon(userPokemon){
     divDefesaS = document.createElement('div');
-    divDefesaS.innerText = userName.defs;
+    divDefesaS.innerText = userPokemon.defs;
     divPrincipal.appendChild(divDefesaS);
 }
-
-
-
