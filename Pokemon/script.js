@@ -25,12 +25,16 @@ function pokemon() {
 
 function nomePokemon(userPokemon){
     divNome = document.createElement('div');
+    nomePok = document.createElement('span');
+    divPrincipal.appendChild(nomePok);
+    nomePok.innerText = "Nome Pokemon: "
     divNome.innerText = userPokemon.name;
     divPrincipal.appendChild(divNome);
 }
 
 function imagemPokemon(userPokemon){
     divImagem = document.createElement('img');
+    divImagem.className('imgPok');
     divImagem.src = userPokemon.url_icon;
     divPrincipal.appendChild(divImagem);
 

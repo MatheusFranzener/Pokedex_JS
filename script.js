@@ -54,10 +54,16 @@ function criarTabela(){
     const colunaImagem = document.createElement('th');
     const colunaNome = document.createElement('th');
     const botaoPesquisa = document.createElement('th');
- 
-    colunaNome.innerText = 'Imagem';
-    botaoPesquisa.innerText = 'Nome';
- 
+    
+    colunaImagem.className = 'colImg';
+    colunaNome.className = 'colName';
+    botaoPesquisa.className = 'colBotao';
+    
+    colunaImagem.innerText = 'Imagem';
+    colunaNome.innerText = 'Nome';
+    botaoPesquisa.innerText = "Botão"
+
+
     tabela.appendChild(linha);
     linha.appendChild(colunaImagem);
     linha.appendChild(colunaNome);
@@ -82,6 +88,7 @@ function dadosTabela(id,name,url_icon, url_icon_2) {
     const colunaImagem = document.createElement('td');
     const colunaNome = document.createElement('td');
     const button = document.createElement('td');
+
     const botaoPesquisa = document.createElement('button');
     const linkBotao = document.createElement('a');
     const imgPokemon = document.createElement('img');
@@ -90,21 +97,22 @@ function dadosTabela(id,name,url_icon, url_icon_2) {
     linkBotao.href = './Pokemon/index.html?'+id;
  
     imgPokemon.src = url_icon;
+    imgPokemon.className = 'imagemPokemon';
+    botaoPesquisa.className = 'buttonPesquisa';
+    
     colunaNome.innerText = name;
+    colunaNome.className = 'nomePoke'
 
     imgPokemon.onerror = function () {
         imgPokemon.src = url_icon_2;
     }
- 
-    imgPokemon.className = 'imagemPokemon';
 
     colunaImagem.appendChild(imgPokemon);
     button.appendChild(botaoPesquisa);
     botaoPesquisa.appendChild(linkBotao);
-    linha.appendChild(button);
     linha.appendChild(colunaImagem);  
     linha.appendChild(colunaNome);  
-    linha.appendChild(botaoPesquisa);
+    linha.appendChild(button);
  
     return linha;
 }
